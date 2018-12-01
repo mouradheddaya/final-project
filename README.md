@@ -1,14 +1,23 @@
 # final-project
 Final project
 
-First look @ Zillow data
-1.	How well does Zillow buyer/seller index explain 6-month changes in median home value? How about 1 year?
+1. Start with a base line: How well does Zillow buyer/seller index explain 6 month changes in median home value? How about 1 year?
+a. Plot data points with a six month offset between the zillow buyer/seller index & the median home value.
 
-2.	You should be able to have the highest success in areas with high foreclosure rates and  rapidly increasing home values
-o	Calculate the best neighborhood in Washington to buy a home (highest foreclosure rate & increasing home values)
-o	Display map with median home prices
-o	Display map with listing days
-•	Table with top five results
+--> add a line of best First
+
+b. Plot data points with a 1 year offset between the zillow buyer/seller index & the median home value.
+--> add a line
+
+2. plot median house value on the map
+  --> figure out how you want the user to narrow the area i.e. neighborhood, city, etc.
+
+3. display map with average listing days in each area
+
+3.	You should be able to have the highest success in areas with high foreclosure rates and  rapidly increasing home values
+- based on the user input figure out best area to buy a home (highest Year over Year change in foreclosures/Year over Year growth in median home values)
+-->	Table with top five results
+
 Data used
 1)	Seller/buyer index (City)
 2)	City_zhvi (bottom tier, by city)
