@@ -4,7 +4,6 @@ Final project
 ** Widgets **
 - dropdown of states
 - radio buttons for the median price chart: All, top, bottom
-- slider for the offset on median price vs buyer/seller index (6 months, 1 year, 2 years, 5 years)
 
 1. Start with a base line: How well does Zillow buyer/seller index explain 6 month changes in median home value? How about 1 year?
 a. Plot data points with a six month offset between the zillow buyer/seller index & the median home value.
