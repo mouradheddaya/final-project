@@ -3,22 +3,22 @@ library(ggplot2)
 library(maps)
 library(ggmap)
 
-buyer_seller <- read.csv("final-project/BuyerSellerIndex_City.csv",
+buyer_seller <- read.csv("BuyerSellerIndex_City.csv",
   stringsAsFactors = FALSE
 )
-neighborhood_all <- read.csv("final-project/Neighborhood_MedianListingPrice_AllHomes.csv",
+neighborhood_all <- read.csv("Neighborhood_MedianListingPrice_AllHomes.csv",
   stringsAsFactors = FALSE
 )
-neighborhood_bottom <- read.csv("final-project/Neighborhood_MedianListingPrice_BottomTier.csv",
+neighborhood_bottom <- read.csv("Neighborhood_MedianListingPrice_BottomTier.csv",
   stringsAsFactors = FALSE
 )
-neighborhood_top <- read.csv("final-project/Neighborhood_MedianListingPrice_TopTier.csv",
+neighborhood_top <- read.csv("Neighborhood_MedianListingPrice_TopTier.csv",
   stringsAsFactors = FALSE
 )
-sales_foreclosed <- read.csv("final-project/SalesPrevForeclosed_Share_Neighborhood.csv",
+sales_foreclosed <- read.csv("SalesPrevForeclosed_Share_Neighborhood.csv",
   stringsAsFactors = FALSE
 )
-lat_lon <- read.csv("final-project/lat_lon.csv", stringsAsFactors = FALSE)
+lat_lon <- read.csv("lat_lon.csv", stringsAsFactors = FALSE)
 buyer_seller <- mutate(buyer_seller, address = paste0(
   buyer_seller$RegionName, ",",
   buyer_seller$State
@@ -51,7 +51,55 @@ buyer_index <- function(state) {
 buyer_index("Washington")
 
 # Plots the median house value by neighborhood on a map
+# given a city, print the median house values 
 
+#median_value <- function(state, year, month) {
+  selected_state <- map_data("state", region = sapply("Washington", tolower))
+  correct_state <- filter(lat_lon, State == as.symbol(
+    sapply(substring("Washington", 1, 2), toupper)
+  ))
+  correct_values <-filter(neighborhood_all, State == as.symbol(
+    sapply(substring("Washington", 1, 2), toupper)))
+  colnames(lat_lon)[colnames(lat_lon)=="RegionName"] <- "City"
+  median_and_location <- inner_join(correct_values, correct_state, by = "City" )
+  
+  ggplot(data = selected_state, aes(x = long, y = lat, group = group)) +
+    geom_polygon(fill = "grey") +
+    coord_quickmap() + geom_point(data = median_and_location, aes(
+      x = lon, y = lat,
+      colour = paste0("median_and_location$X","2010", ".", "01")
+    ), inherit.aes = FALSE) +
+    scale_colour_gradient(low = "white", high = "green") + labs(
+      title =
+        "Median housing price based on year/month", colour = "by price"
+    )
+  
+#}
+
+median_value("Washington", 2010, 01)
+
+
+#plots average days on market
+
+average_days <- function(state) {
+  selected_state <- map_data("state", region = sapply(state, tolower))
+  state_buyer <- filter(lat_lon, State == as.symbol(
+    sapply(substring(state, 1, 2), toupper)
+  ))
+  
+  ggplot(data = selected_state, aes(x = long, y = lat, group = group)) +
+    geom_polygon(fill = "grey") +
+    coord_quickmap() + geom_point(data = state_buyer, aes(
+      x = lon, y = lat,
+      colour = state_buyer$DaysOnMarket
+    ), inherit.aes = FALSE) +
+    scale_colour_gradient(low = "green", high = "red") + labs(
+      title =
+        "Averaage Days on Market", colour = "By number of Days"
+    )
+}
+
+average_days("Washington")
 
 # first we want to see if foreclosure sales and median house price
 # increases indicate a potential buying opportunity. We compared national
