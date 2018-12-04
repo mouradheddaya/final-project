@@ -2,6 +2,7 @@ library(dplyr)
 library(ggplot2)
 library(maps)
 library(ggmap)
+library(stringr)
 
 buyer_seller <- read.csv("BuyerSellerIndex_City.csv",
   stringsAsFactors = FALSE
@@ -51,32 +52,44 @@ buyer_index <- function(state) {
 buyer_index("Washington")
 
 # Plots the median house value by neighborhood on a map
-# given a city, print the median house values 
+# using parameters of state, year and month, recieve a map of 
+# the average housing prices based on location
 
-#median_value <- function(state, year, month) {
-  selected_state <- map_data("state", region = sapply("Washington", tolower))
+median_value <- function(state, year, month) {
+  selected_state <- map_data("state", region = sapply(state, tolower))
   correct_state <- filter(lat_lon, State == as.symbol(
-    sapply(substring("Washington", 1, 2), toupper)
+    sapply(substring(state, 1, 2), toupper)
   ))
   correct_values <-filter(neighborhood_all, State == as.symbol(
-    sapply(substring("Washington", 1, 2), toupper)))
+    sapply(substring(state, 1, 2), toupper)))
   colnames(lat_lon)[colnames(lat_lon)=="RegionName"] <- "City"
   median_and_location <- inner_join(correct_values, correct_state, by = "City" )
+  
+  # if value of month is 01, R evaluates month = 1, therefore I must 
+  # convert month value to a string and add the neccessary "0" infront 
+  # of certain months in order to gain the correct column name 
+  # Also must create correct path through data frame to the specified year
+  # and month data
+  month <- toString(month)
+  if (nchar(month) == 1) {
+  month = paste0("0", month)
+  }
+  right_year <- str_c("median_and_location$X",year, ".", month)
   
   ggplot(data = selected_state, aes(x = long, y = lat, group = group)) +
     geom_polygon(fill = "grey") +
     coord_quickmap() + geom_point(data = median_and_location, aes(
       x = lon, y = lat,
-      colour = paste0("median_and_location$X","2010", ".", "01")
+      colour = eval(parse(text = right_year))
     ), inherit.aes = FALSE) +
-    scale_colour_gradient(low = "white", high = "green") + labs(
+    scale_colour_gradient(low = "red", high = "blue") + labs(
       title =
         "Median housing price based on year/month", colour = "by price"
     )
   
-#}
+}
 
-median_value("Washington", 2010, 01)
+median_value("Washington", 2018, 10)
 
 
 #plots average days on market
