@@ -55,14 +55,18 @@ buyer_index("Washington")
 # using parameters of state, year and month, recieve a map of 
 # the average housing prices based on location
 
+
 median_value <- function(state, year, month) {
+  state = "California"
+  year = 2018
+  month = 01
   selected_state <- map_data("state", region = sapply(state, tolower))
   correct_state <- filter(lat_lon, State == as.symbol(
     sapply(substring(state, 1, 2), toupper)
   ))
   correct_values <-filter(neighborhood_all, State == as.symbol(
     sapply(substring(state, 1, 2), toupper)))
-  colnames(lat_lon)[colnames(lat_lon)=="RegionName"] <- "City"
+  colnames(correct_state)[colnames(correct_state)=="RegionName"] <- "City"
   median_and_location <- inner_join(correct_values, correct_state, by = "City" )
   
   # if value of month is 01, R evaluates month = 1, therefore I must 
@@ -87,9 +91,9 @@ median_value <- function(state, year, month) {
         "Median housing price based on year/month", colour = "by price"
     )
   
-}
+}  
 
-median_value("Washington", 2018, 10)
+median_value("California", 2018, 10)
 
 
 #plots average days on market
@@ -112,7 +116,7 @@ average_days <- function(state) {
     )
 }
 
-average_days("Washington")
+average_days("California")
 
 # first we want to see if foreclosure sales and median house price
 # increases indicate a potential buying opportunity. We compared national
