@@ -3,6 +3,7 @@ library(ggplot2)
 library(maps)
 library(ggmap)
 library(stringr)
+library(openintro)
 
 buyer_seller <- read.csv("BuyerSellerIndex_City.csv",
   stringsAsFactors = FALSE
@@ -20,6 +21,7 @@ sales_foreclosed <- read.csv("SalesPrevForeclosed_Share_Neighborhood.csv",
   stringsAsFactors = FALSE
 )
 lat_lon <- read.csv("lat_lon.csv", stringsAsFactors = FALSE)
+
 buyer_seller <- mutate(buyer_seller, address = paste0(
   buyer_seller$RegionName, ",",
   buyer_seller$State
@@ -57,9 +59,6 @@ buyer_index("Washington")
 
 
 median_value <- function(state, year, month) {
-  state = "California"
-  year = 2018
-  month = 01
   selected_state <- map_data("state", region = sapply(state, tolower))
   correct_state <- filter(lat_lon, State == as.symbol(
     sapply(substring(state, 1, 2), toupper)
@@ -93,7 +92,7 @@ median_value <- function(state, year, month) {
   
 }  
 
-median_value("California", 2018, 10)
+median_value("Washington", 2018, 12)
 
 
 #plots average days on market
@@ -176,3 +175,5 @@ best_buy <- function(state) {
     arrange(desc(score)) %>%
     head(10)
 }
+
+print(best_buy('Washington'))
