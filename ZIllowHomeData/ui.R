@@ -12,6 +12,10 @@ library(shiny)
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
   
+  #interactive logo
+  tags$a(href="https://www.zillow.com/research/data/", 
+         img(src = 'zillow-logo.png', height = '100px', width = '100px', align = "right")),
+  
   # Application title
   titlePanel("Zillow Home Data"),
   

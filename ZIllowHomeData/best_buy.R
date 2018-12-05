@@ -63,7 +63,7 @@ foreclosure_sales <- function(year) {
 create_user_score <- function(sales, median_house, year) {
   date_x <- paste0("X", year, ".03.x")
   create_scores <- inner_join(sales, median_house, by = "RegionName")
-  mutate(create_scores, score = perc_change + !!as.symbol(date_x))
+  mutate(create_scores, Score = perc_change + !!as.symbol(date_x))
 }
 
 # The table displays areas with the highest levels of foreclosure sales
@@ -79,9 +79,8 @@ best_buy <- function(state) {
   median_house <- neighborhood_all %>%
     select(RegionName, X2017.03, X2018.03) %>%
     mutate(perc_change = (X2018.03 - X2017.03) / X2017.03)
-  create_scores <- create_user_score(sales, median_house, 2018) %>%
-    group_by(RegionID) %>%
-    select(RegionName, score) %>%
+  create_scores <- create_user_score(sales, median_house, 2018) %>% 
+    select("Area" = RegionName, "Foreclosure Sales" = X2018.03.x, "Median Price YOYG" = perc_change, "Our Rating" = score) %>%
     arrange(desc(score)) %>%
     head(10)
 }
