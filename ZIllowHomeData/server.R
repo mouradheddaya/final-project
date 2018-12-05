@@ -45,8 +45,13 @@ shinyServer(function(input, output) {
         colour = state_buyer$BuyerSellerIndex
       ), inherit.aes = FALSE) +
       scale_colour_gradient(low = "blue", high = "red") + labs(
-        title =
-          "Buyer/Seller Index", colour = "by buyer/seller Index"
+        title = "Buyer/Seller Index", 
+        subtitle = "The Buyer/Seller Index Our index is created using data on the sale-to-list price ratio,  
+        the percent of homes that have been subject to a price cut, and the time-on-market 
+        (measured as days on Zillow). These three measures are converted into percentile rank, 
+        averaged together, and divided by 10 to generate the final index. This index ranges 
+        from 0 to 10 and is roughly evenly distributed around a mean of 5.",
+        colour = "by buyer/seller Index"
       ))
   })
   
@@ -85,7 +90,10 @@ shinyServer(function(input, output) {
       ), inherit.aes = FALSE) +
       scale_colour_gradient(low = "red", high = "blue") + labs(
         title =
-          "Median housing price based on year/month", colour = "by price"
+          "Median housing price based on year/month", 
+        subtitle = "The median housing price shows the median value of all houses
+        in all neighborhoods based upon the selected state, year and month.",
+        colour = "by price"
       ))
     })
   
@@ -103,7 +111,10 @@ shinyServer(function(input, output) {
       ), inherit.aes = FALSE) +
       scale_colour_gradient(low = "green", high = "red") + labs(
         title =
-          "Average Days on Market", colour = "By number of Days"
+          "Average Days on Market", 
+        subtitle = "Represents the average number of days a house in each neighborhood 
+        of a selected state is listed on Zillow.com before selling",
+        colour = "By number of Days"
       )
   })
   
@@ -143,4 +154,13 @@ shinyServer(function(input, output) {
     best_buy()
   })
   
+
+  output$message <- renderText({
+    print("The table displays areas with the highest levels of foreclosure sales
+      and the largest increase in median house price. These values are combined
+      to create a score. The higher the score, the better a location is 
+      to invest in. This table shows the top ten neighborhoods to invest in 
+      based upon the state selected. This relies on data from March 2018.")
+    
+  })
 })
