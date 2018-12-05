@@ -3,23 +3,25 @@ library(ggplot2)
 library(maps)
 library(ggmap)
 library(stringr)
+library(openintro)
 
 buyer_seller <- read.csv("BuyerSellerIndex_City.csv",
-  stringsAsFactors = FALSE
+                         stringsAsFactors = FALSE
 )
 neighborhood_all <- read.csv("Neighborhood_MedianListingPrice_AllHomes.csv",
-  stringsAsFactors = FALSE
+                             stringsAsFactors = FALSE
 )
 neighborhood_bottom <- read.csv("Neighborhood_MedianListingPrice_BottomTier.csv",
-  stringsAsFactors = FALSE
+                                stringsAsFactors = FALSE
 )
 neighborhood_top <- read.csv("Neighborhood_MedianListingPrice_TopTier.csv",
-  stringsAsFactors = FALSE
+                             stringsAsFactors = FALSE
 )
 sales_foreclosed <- read.csv("SalesPrevForeclosed_Share_Neighborhood.csv",
-  stringsAsFactors = FALSE
+                             stringsAsFactors = FALSE
 )
 lat_lon <- read.csv("lat_lon.csv", stringsAsFactors = FALSE)
+
 buyer_seller <- mutate(buyer_seller, address = paste0(
   buyer_seller$RegionName, ",",
   buyer_seller$State
@@ -36,7 +38,7 @@ buyer_index <- function(state) {
   state_buyer <- filter(lat_lon, State == as.symbol(
     sapply(substring(state, 1, 2), toupper)
   ))
-
+  
   ggplot(data = selected_state, aes(x = long, y = lat, group = group)) +
     geom_polygon(fill = "grey") +
     coord_quickmap() + geom_point(data = state_buyer, aes(
@@ -57,9 +59,6 @@ buyer_index("Washington")
 
 
 median_value <- function(state, year, month) {
-  state = "California"
-  year = 2018
-  month = 01
   selected_state <- map_data("state", region = sapply(state, tolower))
   correct_state <- filter(lat_lon, State == as.symbol(
     sapply(substring(state, 1, 2), toupper)
@@ -76,7 +75,7 @@ median_value <- function(state, year, month) {
   # and month data
   month <- toString(month)
   if (nchar(month) == 1) {
-  month = paste0("0", month)
+    month = paste0("0", month)
   }
   right_year <- str_c("median_and_location$X",year, ".", month)
   
@@ -93,7 +92,7 @@ median_value <- function(state, year, month) {
   
 }  
 
-median_value("California", 2018, 10)
+median_value("Washington", 2018, 12)
 
 
 #plots average days on market
@@ -126,19 +125,19 @@ average_days("California")
 # March 2018 data.
 theory <- function() {
   sales <- foreclosure_sales(2016)
-
+  
   median_house <- neighborhood_all %>%
     select(RegionName, X2015.03, X2016.03, X2018.03) %>%
     mutate(perc_change = (X2016.03 - X2015.03) / X2015.03, result = (X2018.03
-    - X2016.03) / X2016.03)
-
+                                                                     - X2016.03) / X2016.03)
+  
   create_scores <- create_user_score(sales, median_house, 2016)
-
+  
   test <- create_user_score(sales, median_house, 2016) %>%
     filter(is.na(score) == FALSE & is.na(result) == FALSE) %>%
     count(Worked = (score > 0 & result > 0) | (score < 0 & result < 0) |
-      (score < 0 & result > 0))
-
+            (score < 0 & result > 0))
+  
   # here we only count if the score indicated a
   # good purchase that lost money
   test[2, 2] / sum(test$n)
@@ -166,7 +165,7 @@ create_user_score <- function(sales, median_house, year) {
 best_buy <- function(state) {
   sales <- foreclosure_sales(2018) %>%
     filter(StateName == as.symbol(state))
-
+  
   median_house <- neighborhood_all %>%
     select(RegionName, X2017.03, X2018.03) %>%
     mutate(perc_change = (X2018.03 - X2017.03) / X2017.03)
@@ -176,3 +175,5 @@ best_buy <- function(state) {
     arrange(desc(score)) %>%
     head(10)
 }
+
+print(best_buy('Washington'))
