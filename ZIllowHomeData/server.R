@@ -45,6 +45,7 @@ shinyServer(function(input, output) {
         colour = state_buyer$BuyerSellerIndex
       ), inherit.aes = FALSE) +
       scale_colour_gradient(low = "blue", high = "red") + labs(
+<<<<<<< HEAD
         title = "Buyer/Seller Index", 
         subtitle = "The Buyer/Seller Index Our index is created using data on the sale-to-list price ratio,  
         the percent of homes that have been subject to a price cut, and the time-on-market 
@@ -52,6 +53,10 @@ shinyServer(function(input, output) {
         averaged together, and divided by 10 to generate the final index. This index ranges 
         from 0 to 10 and is roughly evenly distributed around a mean of 5.",
         colour = "by buyer/seller Index"
+=======
+        title =
+          "Buyer/Seller Index", colour = "by buyer/seller Index"
+>>>>>>> b5fbe5b527d3e070dc4db8e8105acce13ed9b968
       ))
   })
   
@@ -90,10 +95,14 @@ shinyServer(function(input, output) {
       ), inherit.aes = FALSE) +
       scale_colour_gradient(low = "red", high = "blue") + labs(
         title =
+<<<<<<< HEAD
           "Median housing price based on year/month", 
         subtitle = "The median housing price shows the median value of all houses
         in all neighborhoods based upon the selected state, year and month.",
         colour = "by price"
+=======
+          "Median housing price based on year/month", colour = "by price"
+>>>>>>> b5fbe5b527d3e070dc4db8e8105acce13ed9b968
       ))
     })
   
@@ -111,10 +120,14 @@ shinyServer(function(input, output) {
       ), inherit.aes = FALSE) +
       scale_colour_gradient(low = "green", high = "red") + labs(
         title =
+<<<<<<< HEAD
           "Average Days on Market", 
         subtitle = "Represents the average number of days a house in each neighborhood 
         of a selected state is listed on Zillow.com before selling",
         colour = "By number of Days"
+=======
+          "Average Days on Market", colour = "By number of Days"
+>>>>>>> b5fbe5b527d3e070dc4db8e8105acce13ed9b968
       )
   })
   
@@ -154,6 +167,7 @@ shinyServer(function(input, output) {
     best_buy()
   })
   
+<<<<<<< HEAD
   output$message <- renderText({
     print("The table displays areas with the highest levels of foreclosure sales
           and the largest increase in median house price. These values are combined
@@ -162,4 +176,6 @@ shinyServer(function(input, output) {
       based upon the state selected. This relies on data from March 2018.")
     
   })
+=======
+>>>>>>> b5fbe5b527d3e070dc4db8e8105acce13ed9b968
 })
