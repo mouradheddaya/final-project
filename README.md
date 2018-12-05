@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# **Working with Zillow Data**#
-=======
 # **Working with Zillow Data** #
->>>>>>> b5fbe5b527d3e070dc4db8e8105acce13ed9b968
 
 ## _The data_ ##
 
@@ -20,11 +16,7 @@ Best buy score takes a state as input and returns the top 10 neighborhoods that 
 
 Lastly, our final map displays the average days on market for homes in the chosen state. A lower number suggests a higher amount of activity within the local real estate market. This could suggest either a potentially growing area or somewhere where there is too much of a supply shortage. We suggest that users conduct additional research to figure out which is the cause before buying a property.
 
-<<<<<<< HEAD
-You can access our shiny application at [here](https://mouradheddaya.shinyapps.io/ZillowHomeData/?fbclid=IwAR0xjpDsb1qJvSfqhPmwalJ7SRpySxHqoCkDqYJt7_Xi-XrkdrrHD8WrOrE)
-=======
 **You can access our shiny application at [here](https://mouradheddaya.shinyapps.io/ZillowHomeData/?fbclid=IwAR0xjpDsb1qJvSfqhPmwalJ7SRpySxHqoCkDqYJt7_Xi-XrkdrrHD8WrOrE)** 
->>>>>>> b5fbe5b527d3e070dc4db8e8105acce13ed9b968
 
 _Data used_
 * 	Seller/buyer index (City)
