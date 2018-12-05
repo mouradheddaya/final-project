@@ -109,7 +109,6 @@ shinyUI(fluidPage(
          tabPanel("Buyer/Seller Index", value = 1, plotOutput("buyerIndex")),
          tabPanel("Median Property Price", value = 2, plotOutput("medianPrice")),
          tabPanel("Best Buy Score", value = 3, tableOutput("bestBuy"), textOutput("message")),
-         tabPanel("Best Buy Score", value = 3, tableOutput("bestBuy")),
          tabPanel("Average Days on Market", value = 4, plotOutput("avgOnMarket")), 
          id = "selected_tab"
       )

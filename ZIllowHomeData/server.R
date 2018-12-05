@@ -46,13 +46,17 @@ shinyServer(function(input, output) {
       ), inherit.aes = FALSE) +
       scale_colour_gradient(low = "blue", high = "red") + labs(
         title = "Buyer/Seller Index", 
-        subtitle = "The Buyer/Seller Index Our index is created using data on the sale-to-list price ratio,  
-        the percent of homes that have been subject to a price cut, and the time-on-market 
-        (measured as days on Zillow). These three measures are converted into percentile rank, 
-        averaged together, and divided by 10 to generate the final index. This index ranges 
-        from 0 to 10 and is roughly evenly distributed around a mean of 5.",
+        subtitle = "The Buyer/Seller Index Our index is created using 
+data on the sale-to-list price ratio, the percent of homes that 
+have been subject to a price cut, and the time-on-market 
+(measured as days on Zillow). These three measures are converted 
+into percentile rank, averaged together, and divided by 10 to 
+generate the final index. This index ranges from 0 to 10 and is 
+roughly evenly distributed around a mean of 5.",
         colour = "by buyer/seller Index"
-      ))
+      )+ theme(plot.title = element_text(face = "bold", size = 26),
+               plot.subtitle = element_text(size = 16),
+               axis.title = element_text(size = 16)))
   })
   
   # Plots the median house value by neighborhood on a map
@@ -91,10 +95,13 @@ shinyServer(function(input, output) {
       scale_colour_gradient(low = "red", high = "blue") + labs(
         title =
           "Median housing price based on year/month", 
-        subtitle = "The median housing price shows the median value of all houses
-        in all neighborhoods based upon the selected state, year and month.",
+        subtitle = "The median housing price shows the median value of 
+all houses in all neighborhoods based upon the selected state,
+year and month.",
         colour = "by price"
-      ))
+      )+ theme(plot.title = element_text(face = "bold", size = 26),
+               plot.subtitle = element_text(size = 16),
+               axis.title = element_text(size = 16)))
     })
   
   
@@ -112,10 +119,13 @@ shinyServer(function(input, output) {
       scale_colour_gradient(low = "green", high = "red") + labs(
         title =
           "Average Days on Market", 
-        subtitle = "Represents the average number of days a house in each neighborhood 
-        of a selected state is listed on Zillow.com before selling",
+        subtitle = "Represents the average number of days a house 
+in each neighborhood of a selected state is listed on 
+Zillow.com before selling",
         colour = "By number of Days"
-      )
+      ) + theme(plot.title = element_text(face = "bold", size = 26),
+                plot.subtitle = element_text(size = 16),
+                axis.title = element_text(size = 16))
   })
   
   # The table displays areas with the highest levels of foreclosure sales
