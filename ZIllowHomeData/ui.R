@@ -115,6 +115,7 @@ shinyUI(fluidPage(
          tabPanel("Best Buy Score", value = 3, tableOutput("bestBuy"), textOutput("message")),
          tabPanel("Average Days on Market", value = 4, plotOutput("avgOnMarket")), 
          id = "selected_tab"
-      )
+      ),
+      textOutput("summary")
     )
 )))

@@ -173,4 +173,16 @@ Zillow.com before selling",
       based upon the state selected. This relies on data from March 2018.")
     
   })
+  
+  output$summary <- renderText ({
+    table <- best_buy()
+    neighborhood <- table[1, "Area"]
+    string_n <- neighborhood
+    my_title <- "SUMMARY: "
+    my_summary <- paste("According to the Data, in", input$state, "State, the top location within the state
+                    to purchase a house is in", neighborhood, "as it has the highest score of",
+                        round(table[1, "Score"], 2))
+    total <-paste(my_title, my_summary)
+    return (total)
+  })
 })
