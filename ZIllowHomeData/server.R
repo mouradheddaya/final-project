@@ -120,10 +120,10 @@ shinyServer(function(input, output) {
     median_house <- neighborhood_all %>%
       select(RegionName, X2017.03, X2018.03) %>%
       mutate(perc_change = (X2018.03 - X2017.03) / X2017.03)
-    create_scores <- create_user_score(sales, median_house, 2018) %>%
-      group_by(RegionID) %>%
-      select(RegionName, score) %>%
-      arrange(desc(score)) %>%
+    create_scores <- create_user_score(sales, median_house, 2018) %>% 
+      select("Area" = RegionName, "Foreclosure Sales" = X2018.03.x, 
+       "Median Price YOYG" = perc_change, Score) %>%
+      arrange(desc(Score)) %>%
       head(10)
   })
    
