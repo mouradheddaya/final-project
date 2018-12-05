@@ -67,33 +67,37 @@ shinyUI(fluidPage(
                     "West Virginia" = "West Virginia",
                     "Wisconsin" = "Wisconsin",
                     "Wyoming" = "Wyoming"), selected = "Washington"),
-      selectInput("year", "Select Year:",
-                  c("2010" = "2010",
-                    "2011" = "2011",
-                    "2012" = "2012",
-                    "2013" = "2013",
-                    "2014" = "2014",
-                    "2015" = "2015",
-                    "2016" = "2016",
-                    "2017" = "2017",
-                    "2018" = "2018"), selected = "2018"),
-      selectInput("month", "Select Month:",
-                  c("January" = "01",
-                    "February" = "02",
-                    "March" = "03",
-                    "April" = "04",
-                    "May" = "05",
-                    "June" = "06",
-                    "July" = "07",
-                    "August" = "08",
-                    "September" = "09",
-                    "October" = "10",
-                    "November" = "11",
-                    "December" = "12")),
-      radioButtons("income_level", "Filter by Income Level:",
-                   c("All" = "all",
-                     "Low Income" = "low",
-                     "High Income" = "high"))
+      
+      conditionalPanel(
+        condition = "input.selected_tab == 2",
+        selectInput("year", "Select Year:",
+                    c("2010" = "2010",
+                      "2011" = "2011",
+                      "2012" = "2012",
+                      "2013" = "2013",
+                      "2014" = "2014",
+                      "2015" = "2015",
+                      "2016" = "2016",
+                      "2017" = "2017",
+                      "2018" = "2018"), selected = "2018"),
+        selectInput("month", "Select Month:",
+                    c("January" = "01",
+                      "February" = "02",
+                      "March" = "03",
+                      "April" = "04",
+                      "May" = "05",
+                      "June" = "06",
+                      "July" = "07",
+                      "August" = "08",
+                      "September" = "09",
+                      "October" = "10",
+                      "November" = "11",
+                      "December" = "12")),
+        radioButtons("income_level", "Filter by Income Level:",
+                    c("All" = "all",
+                      "Low Income" = "low",
+                      "High Income" = "high"))
+      )
     ),
     
     # Show a plot of the generated distribution
@@ -102,10 +106,11 @@ shinyUI(fluidPage(
        # plotOutput("medianPrice"),
        # tableOutput("bestBuy")
       tabsetPanel(
-         tabPanel("Buyer/Seller Index", plotOutput("buyerIndex")),
-         tabPanel("Median Property Price", plotOutput("medianPrice")),
-         tabPanel("Best Buy Score", tableOutput("bestBuy")),
-         tabPanel("Average Days on Market", plotOutput("avgOnMarket"))
+         tabPanel("Buyer/Seller Index", value = 1, plotOutput("buyerIndex")),
+         tabPanel("Median Property Price", value = 2, plotOutput("medianPrice")),
+         tabPanel("Best Buy Score", value = 3, tableOutput("bestBuy")),
+         tabPanel("Average Days on Market", value = 4, plotOutput("avgOnMarket")), 
+         id = "selected_tab"
       )
     )
 )))
