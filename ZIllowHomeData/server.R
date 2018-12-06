@@ -45,14 +45,6 @@ shinyServer(function(input, output) {
         colour = state_buyer$BuyerSellerIndex
       ), inherit.aes = FALSE) +
       scale_colour_gradient(low = "blue", high = "red") + labs(
-        title = "Buyer/Seller Index", 
-        subtitle = "The Buyer/Seller Index Our index is created using 
-data on the sale-to-list price ratio, the percent of homes that 
-have been subject to a price cut, and the time-on-market 
-(measured as days on Zillow). These three measures are converted 
-into percentile rank, averaged together, and divided by 10 to 
-generate the final index. This index ranges from 0 to 10 and is 
-roughly evenly distributed around a mean of 5.",
         colour = "by buyer/seller Index"
       )+ theme(plot.title = element_text(face = "bold", size = 26),
                plot.subtitle = element_text(size = 16),
@@ -93,11 +85,6 @@ roughly evenly distributed around a mean of 5.",
         colour = eval(parse(text = right_year))
       ), inherit.aes = FALSE) +
       scale_colour_gradient(low = "red", high = "blue") + labs(
-        title =
-          "Median housing price based on year/month", 
-        subtitle = "The median housing price shows the median value of 
-all houses in all neighborhoods based upon the selected state,
-year and month.",
         colour = "by price"
       )+ theme(plot.title = element_text(face = "bold", size = 26),
                plot.subtitle = element_text(size = 16),
@@ -117,11 +104,6 @@ year and month.",
         colour = state_buyer$DaysOnMarket
       ), inherit.aes = FALSE) +
       scale_colour_gradient(low = "green", high = "red") + labs(
-        title =
-          "Average Days on Market", 
-        subtitle = "Represents the average number of days a house 
-in each neighborhood of a selected state is listed on 
-Zillow.com before selling",
         colour = "By number of Days"
       ) + theme(plot.title = element_text(face = "bold", size = 26),
                 plot.subtitle = element_text(size = 16),
@@ -142,6 +124,7 @@ Zillow.com before selling",
       select(RegionName, X2017.03, X2018.03) %>%
       mutate(perc_change = (X2018.03 - X2017.03) / X2017.03)
     create_scores <- create_user_score(sales, median_house, 2018) %>% 
+      mutate(X2018.03.x * 10000) %>% 
       select("Area" = RegionName, "Foreclosure Sales" = X2018.03.x, 
        "Median Price YOYG" = perc_change, Score) %>%
       arrange(desc(Score)) %>%
@@ -150,19 +133,19 @@ Zillow.com before selling",
    
   output$buyerIndex <- renderPlot({
     buyer_index()
-  })
+  }, height = 700, width = 900)
   
   output$medianPrice <- renderPlot({
     median_value()
-  })
+  }, height = 700, width = 900)
   
   output$avgOnMarket <- renderPlot({
     average_days()
-  })
+  }, height = 700, width = 900)
   
   output$bestBuy <- renderTable({
     best_buy()
-  })
+  }, height = 700, width = 900)
   
 
   output$message <- renderText({
@@ -174,15 +157,34 @@ Zillow.com before selling",
     
   })
   
+  output$index_message <- renderText({
+    print("Our index is created using data on the sale-to-list 
+          price ratio, the percent of homes that have been subject to a price cut, 
+          and the time-on-market (measured as days on Zillow). These three measures 
+          are converted into percentile rank, averaged together, and divided by 10 to 
+          generate the final index. This index ranges from 0 to 10 and is roughly evenly 
+          distributed around a mean of 5.")
+  })
+  
+  output$median_message <- renderText({
+    print("The median housing price shows the median value of 
+          all houses in all neighborhoods based upon the selected state,
+          year and month.")
+  })
+  
+  output$average_message <- renderText({
+    print("Represents the average number of days a house 
+          in each neighborhood of a selected state is listed on 
+          Zillow.com before selling")
+  })
+  
   output$summary <- renderText ({
     table <- best_buy()
     neighborhood <- table[1, "Area"]
     string_n <- neighborhood
-    my_title <- "SUMMARY: "
-    my_summary <- paste("According to the Data, in", input$state, "State, the top location within the state
+    my_summary <- paste("SUMMARY: According to the Data, in", input$state, "State, the top location within the state
                     to purchase a house is in", neighborhood, "as it has the highest score of",
                         round(table[1, "Score"], 2))
-    total <-paste(my_title, my_summary)
-    return (total)
+    return (my_summary)
   })
 })
