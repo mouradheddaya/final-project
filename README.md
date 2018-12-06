@@ -1,9 +1,16 @@
 # **Working with Zillow Data** #
 
-## _The data_ ##
+## _The Data_ ##
 
 For this project we used data provided by Zillow research. You can more about it [here](https://www.zillow.com/research/data/). In particular we were focused on US housing data regarding median home prices,
 Zillow's buyer/seller index, and sales of previously foreclosed homes. Since the Zillow datasets do not provide longitude/latitude coordinates we cross listed locations with Google's ggmap package.
+
+## _The Questions_ ##
+1 ) Given a state, which neighborhood presents the most opportune environment to flip a house resulting in the highest profit?
+
+2) Given information about median house pricing, average time on market, and forclosures, how can one computer a score in order to scale the value of a neighborhood in regard to house flipping profit?
+
+3) To what degree does the median value of a house fluctuate across each month of the year?
 
 ## _The Purpose_ ##
 Using our shiny app as initial starting place house flippers should have a better insight into what neighborhoods may be most lucrative to buy property in.
@@ -19,7 +26,7 @@ Lastly, our final map displays the average days on market for homes in the chose
 **You can access our shiny application at [here](https://mouradheddaya.shinyapps.io/ZillowHomeData/?fbclid=IwAR0xjpDsb1qJvSfqhPmwalJ7SRpySxHqoCkDqYJt7_Xi-XrkdrrHD8WrOrE)** 
 
 _Data used_
-* 	Seller/buyer index (City)
+* Seller/buyer index (City)
 * City_zhvi (bottom tier, by city)
 *	Foreclosures per 10K homes(neighborhood)
 *	Foreclosure resales (neighborhood)
