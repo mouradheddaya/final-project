@@ -23,7 +23,6 @@ Best buy score takes a state as input and returns the top 10 neighborhoods that 
 
 Lastly, our final map displays the average days on market for homes in the chosen state. A lower number suggests a higher amount of activity within the local real estate market. This could suggest either a potentially growing area or somewhere where there is too much of a supply shortage. We suggest that users conduct additional research to figure out which is the cause before buying a property.
 
-**You can access our shiny application at [here](https://shaunakpandit.shinyapps.io/ZIllowHomeData/)** 
 
 _Data used_
 * Seller/buyer index (City)
