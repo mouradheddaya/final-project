@@ -192,5 +192,4 @@ shinyServer(function(input, output) {
     return (my_summary)
   })
   
-  })
 })
