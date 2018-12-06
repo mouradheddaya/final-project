@@ -107,7 +107,7 @@ shinyUI(fluidPage(
     # Show a plot of the generated distribution
     mainPanel(
       tabsetPanel(
-         tabPanel("About", value = 1, includeMarkdown("../README.md")),
+         tabPanel("About", value = 1, includeMarkdown("./intro.md")),
          tabPanel("Buyer/Seller Index", value = 2, textOutput("index_message"), plotOutput("buyerIndex", width="100%")),
          tabPanel("Median Property Price", value = 3, textOutput("median_message"), plotOutput("medianPrice")),
          tabPanel("Best Buy Score", value = 4, textOutput("message"), tableOutput("bestBuy"),textOutput("summary")),

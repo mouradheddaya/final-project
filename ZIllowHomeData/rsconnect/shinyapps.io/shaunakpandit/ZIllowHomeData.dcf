@@ -5,8 +5,8 @@ account: shaunakpandit
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 606389
-bundleId: 1744989
+bundleId: 1745001
 url: https://shaunakpandit.shinyapps.io/ZIllowHomeData/
-when: 1544079862.80812
+when: 1544080482.64072
 asMultiple: FALSE
 asStatic: FALSE
