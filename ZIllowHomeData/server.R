@@ -133,19 +133,19 @@ shinyServer(function(input, output) {
    
   output$buyerIndex <- renderPlot({
     buyer_index()
-  }, height = 700, width = 900)
+  })
   
   output$medianPrice <- renderPlot({
     median_value()
-  }, height = 700, width = 900)
+  })
   
   output$avgOnMarket <- renderPlot({
     average_days()
-  }, height = 700, width = 900)
+  })
   
   output$bestBuy <- renderTable({
     best_buy()
-  }, height = 700, width = 900)
+  })
   
 
   output$message <- renderText({
@@ -178,6 +178,8 @@ shinyServer(function(input, output) {
           Zillow.com before selling")
   })
   
+  # Creates dynamic summary that presents the neighborhood of best investment 
+  # based upon the entered state including our custom made invesment score. 
   output$summary <- renderText ({
     table <- best_buy()
     neighborhood <- table[1, "Area"]
@@ -186,5 +188,9 @@ shinyServer(function(input, output) {
                     to purchase a house is in", neighborhood, "as it has the highest score of",
                         round(table[1, "Score"], 2))
     return (my_summary)
+  })
+  
+  output$about <- renderText ({
+    print()
   })
 })

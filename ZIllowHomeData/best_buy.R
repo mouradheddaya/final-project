@@ -53,6 +53,7 @@ theory <- function() {
   test[2, 2] / sum(test$n)
 }
 
+# finds number of forclosures in a state over a year based on region
 foreclosure_sales <- function(year) {
   date <- paste0("X", year, ".03")
   sales_foreclosed %>%
@@ -60,6 +61,7 @@ foreclosure_sales <- function(year) {
     filter(is.na(date) == FALSE)
 }
 
+# Creates the score of the neighborhoods considered in purchasing a house
 create_user_score <- function(sales, median_house, year) {
   date_x <- paste0("X", year, ".03.x")
   create_scores <- inner_join(sales, median_house, by = "RegionName")
